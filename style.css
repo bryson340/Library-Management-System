@@ -1,0 +1,117 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --primary: #4a90e2;    /* Professional Blue */
+    --secondary: #2ecc71;  /* Success Green */
+    --danger: #e74c3c;     /* Alert Red */
+    --dark: #2c3e50;       /* Dark Text */
+    --light: #f4f6f9;      /* Background Gray */
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light);
+    color: var(--dark);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Container for centered content */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+h1, h2, h3 { color: var(--dark); margin-bottom: 20px; }
+
+/* Navigation Bar */
+.navbar {
+    background: linear-gradient(135deg, var(--primary), #357abd);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-brand { font-size: 1.5rem; font-weight: 600; }
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+.btn-primary { background: var(--primary); }
+.btn-success { background: var(--secondary); }
+.btn-danger { background: var(--danger); }
+
+/* Forms */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    box-sizing: border-box; /* Fixes padding issues */
+}
+
+input:focus { border-color: var(--primary); outline: none; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin-top: 20px; overflow: hidden; border-radius: 8px; }
+th { background-color: var(--primary); color: white; padding: 15px; text-align: left; }
+td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+tr:hover { background-color: #f1f7ff; transition: background 0.2s; }
+
+/* Login Page Specifics */
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    width: 350px;
+    text-align: center;
+}
+/* Search Bar Animation */
+#searchBox:focus {
+    width: 350px !important; /* Expands when clicked */
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+}
