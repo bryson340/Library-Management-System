@@ -1,9 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: dashboard.php");
-    exit();
-}
+if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') { header("Location: dashboard.php"); exit(); }
 
 include_once 'Database.php';
 include_once 'Book.php';
@@ -18,34 +15,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = $_POST['title'];
     $author = $_POST['author'];
     $genre = $_POST['genre'];
+    $quantity = $_POST['quantity'];
     
-    // Default image if none uploaded
     $image_name = "default.jpg";
 
-    // Handle File Upload
     if(isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] == 0) {
         $allowed = ['jpg', 'jpeg', 'png', 'gif'];
         $filename = $_FILES['cover_image']['name'];
         $filetype = pathinfo($filename, PATHINFO_EXTENSION);
-        
         if(in_array(strtolower($filetype), $allowed)) {
-            // Create a unique name to prevent overwriting (e.g., book_65a4b.jpg)
             $new_filename = uniqid("book_") . "." . $filetype;
-            $destination = "uploads/" . $new_filename;
-            
-            if(move_uploaded_file($_FILES['cover_image']['tmp_name'], $destination)) {
+            if(move_uploaded_file($_FILES['cover_image']['tmp_name'], "uploads/" . $new_filename)) {
                 $image_name = $new_filename;
             } else {
                 $message = "Error moving file.";
             }
         } else {
-            $message = "Invalid file type. Only JPG, PNG, GIF allowed.";
+            $message = "Invalid file type.";
         }
     }
 
-    // Only save to DB if no errors
     if(empty($message)) {
-        if($book->create($title, $author, $genre, $image_name)) {
+        if($book->create($title, $author, $genre, $image_name, $quantity)) {
             header("Location: dashboard.php");
             exit();
         } else {
@@ -58,12 +49,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Book | Library Pro</title>
+    <title>Add New Book | Library Management</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-brand">📚 Library Pro</div>
+        <div class="nav-brand">📚 Library Management</div>
         <a href="dashboard.php" class="btn btn-primary">Back to Dashboard</a>
     </nav>
 
@@ -80,6 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <label>Genre:</label>
             <input type="text" name="genre" required>
+
+            <label>Quantity (Stock):</label>
+            <input type="number" name="quantity" value="5" min="1" required style="width:100%; padding:10px; margin:10px 0; border:2px solid #ddd; border-radius:6px;">
 
             <label style="display:block; margin-top:15px;">Book Cover (Optional):</label>
             <input type="file" name="cover_image" style="margin-top:5px;">

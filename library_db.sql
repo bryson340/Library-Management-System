@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2026 at 09:36 PM
+-- Generation Time: Jan 21, 2026 at 04:23 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,21 +32,23 @@ CREATE TABLE `books` (
   `title` varchar(100) NOT NULL,
   `author` varchar(100) NOT NULL,
   `genre` varchar(50) DEFAULT NULL,
-  `is_available` tinyint(1) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `cover_image` varchar(255) DEFAULT 'default.jpg'
+  `cover_image` varchar(255) DEFAULT 'default.jpg',
+  `quantity` int(11) DEFAULT 5
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`book_id`, `title`, `author`, `genre`, `is_available`, `created_at`, `cover_image`) VALUES
-(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Classic', 1, '2026-01-20 19:03:28', 'book_696fe53878678.jpg'),
-(2, '1984', 'George Orwell', 'Dystopian', 1, '2026-01-20 19:03:28', 'book_696fe56dd4476.jpg'),
-(3, 'Introduction to PHP', 'John Doe', 'Education', 1, '2026-01-20 19:03:28', 'default.jpg'),
-(4, 'clean code', 'robert martin', 'tech', 1, '2026-01-20 19:09:19', 'book_696fe4fdd554c.jpg'),
-(5, 'Rich Dad Poor Dad', 'Robert Kiyosaki', 'knowledge', 0, '2026-01-20 20:10:48', 'book_696fe148f0c01.jpg');
+INSERT INTO `books` (`book_id`, `title`, `author`, `genre`, `created_at`, `cover_image`, `quantity`) VALUES
+(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 'Classic', '2026-01-20 19:03:28', 'book_696fe53878678.jpg', 5),
+(2, '1984', 'George Orwell', 'Dystopian', '2026-01-20 19:03:28', 'book_696fe56dd4476.jpg', 5),
+(3, 'Introduction to PHP', 'John Doe', 'Education', '2026-01-20 19:03:28', 'book_6970ba99d39f3.jpg', 5),
+(4, 'clean code', 'robert martin', 'tech', '2026-01-20 19:09:19', 'book_696fe4fdd554c.jpg', 5),
+(5, 'Rich Dad Poor Dad', 'Robert Kiyosaki', 'knowledge', '2026-01-20 20:10:48', 'book_696fe148f0c01.jpg', 5),
+(6, 'Harry Potter', 'J.K. Rowling', 'Drama', '2026-01-21 14:55:39', 'book_6970e8eb6c20b.jpg', 6),
+(7, 'CAN&#039;T HURT ME', 'David Goggins', 'Motivation', '2026-01-21 15:00:59', 'book_6970ea55edacc.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -60,16 +62,22 @@ CREATE TABLE `issued_books` (
   `book_id` int(11) DEFAULT NULL,
   `issue_date` date DEFAULT curdate(),
   `return_date` date DEFAULT NULL,
-  `status` enum('issued','returned') DEFAULT 'issued'
+  `status` enum('issued','returned') DEFAULT 'issued',
+  `user_name` varchar(100) DEFAULT NULL,
+  `user_address` text DEFAULT NULL,
+  `user_phone` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `issued_books`
 --
 
-INSERT INTO `issued_books` (`issue_id`, `user_id`, `book_id`, `issue_date`, `return_date`, `status`) VALUES
-(1, 1, 4, '2026-01-21', '2026-01-20', 'returned'),
-(2, 1, 5, '2026-01-21', NULL, 'issued');
+INSERT INTO `issued_books` (`issue_id`, `user_id`, `book_id`, `issue_date`, `return_date`, `status`, `user_name`, `user_address`, `user_phone`) VALUES
+(1, 1, 4, '2026-01-21', '2026-01-20', 'returned', NULL, NULL, NULL),
+(2, 1, 5, '2026-01-21', '2026-01-21', 'returned', NULL, NULL, NULL),
+(3, 1, 5, '2026-01-21', '2026-01-21', 'returned', NULL, NULL, NULL),
+(4, 1, 4, '2026-01-21', '2026-01-21', 'returned', 'chris', 'Thakur vidya mandir high school and junior college ,nallasopara east', '7767987298'),
+(5, 1, 6, '2026-01-21', NULL, 'issued', 'chris', 'Sahil House Nanbhat Akkarbhat Umrale road nalasopara west\r\nUmrale road', '7767987298');
 
 -- --------------------------------------------------------
 
@@ -125,13 +133,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `issued_books`
 --
 ALTER TABLE `issued_books`
-  MODIFY `issue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `issue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

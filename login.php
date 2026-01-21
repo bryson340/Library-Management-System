@@ -23,13 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login | Library Pro</title>
+    <title>Login | Library Management</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="login-wrapper">
         <div class="login-card">
-            <h2 style="color:var(--primary);">Library Portal</h2>
+            <h2 style="color:var(--primary);">Library Management</h2>
             <p style="color:#777; margin-bottom:20px;">Please sign in to continue</p>
             
             <?php if($message) { echo "<p style='color:red; background:#fee; padding:10px; border-radius:4px;'>$message</p>"; } ?>

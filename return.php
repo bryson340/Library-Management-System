@@ -17,7 +17,7 @@ if(isset($_SESSION['user_id']) && isset($_GET['issue_id']) && isset($_GET['book_
     if($fine !== false) {
         // Redirect with a success message showing the fine
         $msg = ($fine > 0) ? "Book returned! Late Fine: $$fine" : "Book returned successfully! No Fine.";
-        header("Location: my_books.php?msg=" . urlencode($msg));
+       header("Location: records.php?msg=" . urlencode($msg));
     } else {
         echo "Error returning book.";
     }
